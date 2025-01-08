@@ -4,6 +4,7 @@ let round;
 
 const buttonContainer = document.querySelector(".button-container");
 const winnerHeading = document.querySelector("#winner");
+const roundWinnerHeading = document.querySelector("#round-winner");
 const hScore = document.querySelector("#human-score");
 const cScore = document.querySelector("#computer-score");
 const rNumber = document.querySelector("#round-number");
@@ -18,6 +19,7 @@ function start() {
     round = 0;
     buttonContainer.hidden = false;
     winnerHeading.textContent = "";
+    roundWinnerHeading.textContent = "";
     updateScore();
     updateRound();
 }
@@ -52,19 +54,30 @@ function updateRound() {
     rNumber.textContent = round;
 }
 
+// Updates the winner of round
+function updateRoundWinner(winner) {
+    if(winner === "human") {
+        roundWinnerHeading.textContent = "You win this round!";
+    } else if (winner === "computer") {
+        roundWinnerHeading.textContent = "Computer wins this round!";
+    } else {
+        roundWinnerHeading.textContent = "Draw!";
+    }
+}
+
 // Function that returns and logs winner of a round of rock, paper and scissors
 function playRound(humanChoice, computerChoice) {
     if ((humanChoice == "rock" && computerChoice == "scissors") || (humanChoice == "paper" && computerChoice == "rock") || (humanChoice == "scissors" && computerChoice == "paper")) {
         humanScore++;
         console.log("Player Wins!");
-        return "You win!";
+        return "human";
     } else if (computerChoice == humanChoice) {
         console.log("Draw!");
         return "Draw";
     } else {
         computerScore++;
         console.log("Computer Wins!");
-        return "You lose!"
+        return "computer"
     }
 }
 
@@ -95,6 +108,7 @@ function playGame(event) {
 
     updateScore();
     updateRound();
+    updateRoundWinner(result);
     console.log(`You chose: ${humanChoice}\nComputer chose: ${computerChoice}\n${result}\nYour Score: ${humanScore}\nComputer Score: ${computerScore}`);
     checkWinner();
 }
