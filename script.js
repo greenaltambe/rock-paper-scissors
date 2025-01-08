@@ -29,7 +29,7 @@ function playRound(humanChoice, computerChoice) {
         return 'You win!';
     } else if (computerChoice == humanChoice) {
         console.log('Draw!');
-        return 'draw';
+        return 'Draw';
     } else {
         computerScore++;
         console.log('You lost!');
@@ -63,4 +63,11 @@ function playGame() {
     console.log(`Your Score: ${humanScore}\nComputer Score: ${computerScore}`);
 }
 
-playGame();
+// playGame();
+const buttonContainer = document.querySelector(".button-container");
+buttonContainer.addEventListener("click", (event) => {
+    let humanChoice = event.target.id;
+    let computerChoice = getComputerChoice();
+    let result = playRound(humanChoice, computerChoice);
+    console.log(`You chose: ${humanChoice}\nComputer chose: ${computerChoice}\n${result}\nYour Score: ${humanScore}\nComputer Score: ${computerScore}`);
+});
